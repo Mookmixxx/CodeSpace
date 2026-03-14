@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student List</title>
+</head>
+<body>
+
+<h2>รายชื่อนักเรียนทั้งหมด</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>รูป</th>
+      <th>ชื่อ</th>
+      <th>อายุ</th>
+      <th>ชั้น</th>
+    </tr>
+  </thead>
+  <tbody id="studentTable"></tbody>
+</table>
+
+<script>
+fetch('http://localhost:3000/api/student')
+  .then(res => res.json())
+  .then(data => {
+    let output = '';
+    data.forEach(student => {
+      output += `
+        <tr>
+          <td>
+            ${student.image_url 
+              ? `<img src="./${student.image_url}" width="50">`
+              : 'ไม่มีรูป'}
+          </td>
+          <td>${student.firstname} ${student.lastname}</td>
+          <td>${student.age}</td>
+          <td>${student.class_name}</td>
+        </tr>
+      `;
+    });
+    document.getElementById('studentTable').innerHTML = output;
+  });
+</script>
+</body>
+</html>
